@@ -1,15 +1,21 @@
+/*
+	Name: Kevin Ross
+	Student #: 5327746
+	Lab Section: 1
+*/
 #include <stdio.h>
-
+// declare the array sizes
+#define ROWS 12
+#define COLS 13
+// declare the data manipulation function
 void fct(char* table, char* in);
 int main() {
+	// variable declarations.
 	char * data = "Assignment 1";
-	
-	char data_table [12][13];
-	
-	char * data_iter = &data_table[0][0];
-	
-	fct(data_iter, data);
-	
+	char data_table [ROWS][COLS];
+	// perform the manipulation
+	fct(&data_table[0][0], data);
+	// print the results
 	int i;
 	for (i=0; i<12; i++) {
 		printf("Line: %s\n", data_table[i]);
@@ -21,20 +27,20 @@ void fct(char* table, char* in) {
 	// declare variables to keep track of cell location
 	int col = 0;
 	int row;
-	int left = 0;
-	// declare pointers to keep track of memory location
+	// declare a pointer to keep track of memory location
 	char * pointer_to_char = in;
 	// init the array
-	for (row=0; row<12; row++) {
-		for (col=0; col<13; col++) {
-			*(table + 12*row + col) = '\0';
+	for (row=0; row<ROWS; row++) {
+		for (col=0; col<COLS; col++) {
+			*(table + row*COLS + col) = '\0';
 		}
 	}
-	// keep the last row special because we don't need to process it
-	for (row=0; row<12; row++) {
+	// process it
+	for (row=0; row<ROWS; row++) {
 		for (col=0; col<=row; col++) {
-			*(table + row*13 + col) = *(pointer_to_char++);
+			*(table + row*COLS + col) = *(pointer_to_char++);
 		}
+		// reset the pointer to the data back to the start of the string
 		pointer_to_char = in;
 	}
 }
